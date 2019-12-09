@@ -1,7 +1,7 @@
-#FLASKAPP-FEEDBACK
+# FLASKAPP-FEEDBACK
 Easy Flask feedback application deployed on heroku that sends data to Postgres database and emails user
 
-#Quick Start
+# Quick Start
 ```bash
 # Add your DATABASE URI in app.py and your mail params in send_mail.py
 
@@ -13,24 +13,24 @@ pipenv install
 python app.py
 ```
 
-##STEP BY STEP
+## STEP BY STEP
 
-##Create new directory 
+## Create new directory 
 ```bash
 mkdir flaskapp-feedback
 ```
 
-##Create python virtual environment
+## Create python virtual environment
 ```python
 pip install pipenv
 ```
 
-##Run python virtual environment
+## Run python virtual environment
 ```python
 pipenv shell
 ```
 
-##Install packages
+## Install packages
 ```python
 pipenv install flask
 pipenv install request
@@ -39,55 +39,55 @@ pipenv install flask-sqlalchemy #abstract layer allows to work with db model sim
 pipenv install gunicorn #http server needed to deploy to Heroku
 ```
 
-##Install python in Visual Studio Code and select python interpreter
+## Install python in Visual Studio Code and select python interpreter
 python 3.8 flaskapp-feedback
 
-##Create project folders and add files
+## Create project folders and add files
 static (logo.png, css.style)
 template (index.html, success.html)
 app.py
 
-##Import Flask packages
+## Import Flask packages
 render_template is used to render html file while request deal with request parameter
 ```python
 from flask import Flask, render_template, request
 ```
 
-##Initializize app.py
+## Initializize app.py
 ```python
 app=Flask(__name__)
 ```
 
-##Start creating route and define functions
+## Start creating route and define functions
 ```python
 @app.route('/')
 def index():
     return render_template('index.html')
 ```
 
-##Run the server
+## Run the server
 ```python 
 if __name__ == '__main__':
     app.run() 
 ```
 
-##Add debug mode to keep reloading server (only for development)
+## Add debug mode to keep reloading server (only for development)
 ```python
 if __name__ == '__main__':
     app.debug= True
     app.run()
 ```
 
-##Import SQL Alchemy
+## Import SQL Alchemy
 ```python
 from flask_sqlalchemy import SQLAlchemy
 ```
 
-##Install PostgreSQL on your system and create a new database
+## Install PostgreSQL on your system and create a new database
 
-##Create a database variable to differentiate development database from production database
+## Create a database variable to differentiate development database from production database
 
-##Create database object 
+## Create database object 
 ```python 
 db = SQLAlchemy(app)
 
@@ -106,20 +106,20 @@ class Feedback(db.Model):
         self.comments = comments
 ```
 
-##Run python from the terminal and create database table based from the app.py model
+## Run python from the terminal and create database table based from the app.py model
 ```bash 
  >>> from app import db
  >>> db.create_all()
  >>> exit() 
 ```
 
-##Send database data to mailtrap.io account
+## Send database data to mailtrap.io account
 create a new file inside the project directory send_mail.py and import packages
 ```python
 from send_mail import send_mail 
 ```
 
-##Deploy on Heroku
+## Deploy on Heroku
 Create an account on heroku.com and install on your machine heroku cli
 Create a new file .gitignore and initialize within the terminal a git repository:
 ```bash
@@ -165,7 +165,7 @@ Create a new file .gitignore and initialize within the terminal a git repository
 
 # login into the remote database -> heroku pg:psql --app flaskapp-feedback
     # select * from feedback;à
-    
+
 # Check email from mailtrap.io
 ```
 
