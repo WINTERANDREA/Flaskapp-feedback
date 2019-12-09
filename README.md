@@ -96,7 +96,21 @@ initialize within the terminal a git repository:
 9) create a new file -> Procfile and insert -> web: gunicorn app:app
 10) create a new file to tell which python version use -> runtime.txt and insert -> python-3.8.0
 11) create requirements.txt to include all the packages needed by the application -> pip freeze > requirements.txt
-12) add all to git repository -> git add . && git commit -m 'Initial deploy'
+12) add all to git repository -> 
+    12.1) git add .
+    12.2) git commit -m 'Initial deploy'
+13) push local repo (git) into heroku -> heroku git:remote -a flaskapp-feedback
+14) push to heroku master branch -> git push heroku master
+15) heroku run python
+16) create db table
+    16.1) from app import db
+    16.2) db.create_all()
+    16.3) exit()
+17) LAUNCHE THE WEB APP -> heroku open
+    17.1) https://flaskapp-feedback.herokuapp.com/
+18) login into the remote database -> heroku pg:psql --app flaskapp-feedback
+    18.1) select * from feedback;
+19) Check email from mailtrap.io
 -->
 
 
