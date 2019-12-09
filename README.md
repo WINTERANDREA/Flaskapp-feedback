@@ -1,5 +1,6 @@
 # FLASKAPP-FEEDBACK
-Easy Flask feedback application deployed on heroku that sends data to Postgres database and emails user
+Python Flask feedback application deployed on heroku that sends data to Postgres database and emails user
+https://github.com/WINTERANDREA/Flaskapp-feedback
 
 # Quick Start
 ```bash
