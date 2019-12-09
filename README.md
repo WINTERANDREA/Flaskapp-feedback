@@ -1,54 +1,94 @@
-#CREATE A PYTHON VIRTUAL ENVIRONMENT
-pip install pipenv
+#FLASKAPP-FEEDBACK
+Easy Flask feedback application deployed on heroku that sends data to Postgres database and emails user
 
-#RUN THE VIRTUAL ENVIRONMENT
+#Quick Start
+```bash
+# Add your DATABASE URI in app.py and your mail params in send_mail.py
+
+# Install dependencies
 pipenv shell
+pipenv install
 
-#INSTALL ALL THE PACKAGES WE NEED
+# Serve on localhost:5000
+python app.py
+```
+
+##STEP BY STEP
+
+##Create new directory 
+```bash
+mkdir flaskapp-feedback
+```
+
+##Create python virtual environment
+```python
+pip install pipenv
+```
+
+##Run python virtual environment
+```python
+pipenv shell
+```
+
+##Install packages
+```python
 pipenv install flask
 pipenv install request
-pipenv install psycopg2 (database adaptor in order to work with Postgres)
-pipenv install flask-sqlalchemy (abstract layer allows to work with db model similar to mangoose)
-pipenv install gunicorn (http server needed to deploy to Heroku)
+pipenv install psycopg2 #database adaptor in order to work with Postgres
+pipenv install flask-sqlalchemy #abstract layer allows to work with db model similar to mangoose
+pipenv install gunicorn #http server needed to deploy to Heroku
+```
 
-#SELECT VS PYTHON INTERPRETER
-python 3.8 flaskapp_feedback
+##Install python in Visual Studio Code and select python interpreter
+python 3.8 flaskapp-feedback
 
-#CREATE FOLDERS AND FILES
+##Create project folders and add files
 static (logo.png, css.style)
 template (index.html, success.html)
+app.py
 
-#CREATE APP.PY FILE
-from flask import Flask, render_template (renderhtml file), request (deal with request parameter)
+##Import Flask packages
+render_template is used to render html file while request deal with request parameter
+```python
+from flask import Flask, render_template, request
+```
 
-#INITIALIZE FLASK APP
-<!-- app=Flask(__name__) -->
+##Initializize app.py
+```python
+app=Flask(__name__)
+```
 
-#CREATE ROUTE AND DEFINE FUNCTION
+##Start creating route and define functions
+```python
+@app.route('/')
+def index():
+    return render_template('index.html')
+```
 
-#RUN SERVER WITH IF STATEMENT 
-<!-- 
+##Run the server
+```python 
 if __name__ == '__main__':
-app.run() 
--->
+    app.run() 
+```
 
-#ADD DEBUG MODE TO KEEP RELOADING SERVER (ONLY DURING DEVELOPMENT)
-<!-- 
+##Add debug mode to keep reloading server (only for development)
+```python
 if __name__ == '__main__':
-app.debug= True
-app.run()
--->
+    app.debug= True
+    app.run()
+```
 
-
-#SQL ALCHEMY
+##Import SQL Alchemy
+```python
 from flask_sqlalchemy import SQLAlchemy
+```
 
-#INSTALL POSTGRESQL AND CREATE NEW DATABASE
+##Install PostgreSQL on your system and create a new database
 
-#CREATE DB VARIABLE TO DIFFERENTATE DEV DB TO PRODUCTION DB
+##Create a database variable to differentiate development database from production database
 
-#CREATE DATABASE OBJECT 
-<!-- 
+##Create database object 
+```python 
 db = SQLAlchemy(app)
 
 class Feedback(db.Model):
@@ -64,53 +104,69 @@ class Feedback(db.Model):
         self.dealer = dealer
         self.rating = rating
         self.comments = comments
- -->
+```
 
- #CREATE DB TABLE BASED ON APP MODEL
-<!--  
-open up python terminal
+##Run python from the terminal and create database table based from the app.py model
+```bash 
  >>> from app import db
  >>> db.create_all()
  >>> exit() 
- -->
+```
 
-#EMAIL DB DATA
-<!-- 
-create new file send_mail.py
-add to app.py -> from send_mail import send_mail 
--->
+##Send database data to mailtrap.io account
+create a new file inside the project directory send_mail.py and import packages
+```python
+from send_mail import send_mail 
+```
 
-#DEPLOY ON HEROKU
-<!-- create an account on heroku.com
-install on your machine heroku cli
-create a new file .gitignore
-initialize within the terminal a git repository:
-1) git init
-2) check heroku is installed -> heroku --version
-3) heroku login 
-4) create heroku application -> heroku create flaskapp-feedback
-5) create postgresql database on heroku -> heroku addons:create heroku-postgresql:hobby-dev --app flaskapp-feedback
-6) get heroku database url -> heroku config --app flaskapp-feedback
-7) paste the url inside app.py file in the app.config variable (production database)
-8) change dev mode to production
-9) create a new file -> Procfile and insert -> web: gunicorn app:app
-10) create a new file to tell which python version use -> runtime.txt and insert -> python-3.8.0
-11) create requirements.txt to include all the packages needed by the application -> pip freeze > requirements.txt
-12) add all to git repository -> 
-    12.1) git add .
-    12.2) git commit -m 'Initial deploy'
-13) push local repo (git) into heroku -> heroku git:remote -a flaskapp-feedback
-14) push to heroku master branch -> git push heroku master
-15) heroku run python
-16) create db table
-    16.1) from app import db
-    16.2) db.create_all()
-    16.3) exit()
-17) LAUNCHE THE WEB APP -> heroku open
-    17.1) https://flaskapp-feedback.herokuapp.com/
-18) login into the remote database -> heroku pg:psql --app flaskapp-feedback
-    18.1) select * from feedback;
-19) Check email from mailtrap.io
--->
+##Deploy on Heroku
+Create an account on heroku.com and install on your machine heroku cli
+Create a new file .gitignore and initialize within the terminal a git repository:
+```bash
+# git init
+
+# check heroku is installed -> heroku --version
+
+# heroku login 
+
+# create heroku application -> heroku create flaskapp-feedback
+
+# create postgresql database on heroku -> heroku addons:create heroku-postgresql:hobby-dev --app flaskapp-feedback
+
+# get heroku database url -> heroku config --app flaskapp-feedback
+
+# paste the url inside app.py file in the app.config variable (production database)
+
+# change dev mode to production
+
+# create a new file -> Procfile and insert -> web: gunicorn app:app
+
+# create a new file to tell which python version use -> runtime.txt and insert -> python-3.8.0
+
+# create requirements.txt to include all the packages needed by the application -> pip freeze > requirements.txt
+
+# add all to git repository: 
+    # git add .
+    # git commit -m 'Initial deploy'
+
+# push local repo (git) into heroku -> heroku git:remote -a flaskapp-feedback
+
+# push to heroku master branch -> git push heroku master
+
+# heroku run python
+
+# create db table
+    # from app import db
+    # db.create_all()
+    # exit()
+
+# LAUNCHE THE WEB APP -> heroku open
+    # https://flaskapp-feedback.herokuapp.com/
+
+# login into the remote database -> heroku pg:psql --app flaskapp-feedback
+    # select * from feedback;à
+    
+# Check email from mailtrap.io
+```
 
 
