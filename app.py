@@ -8,10 +8,10 @@ ENV = 'production'
 
 if ENV == 'dev':
     app.debug = True
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:root1234@localhost/flaskapp_feedback'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:yourpassword@localhost/yourappname'
 else:
     app.debug = False
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://qztqcsiednmdpe:5754288e95a50cf37e40037b8ff24599741ceb61ff9410081de8d84c837c1ac8@ec2-174-129-255-46.compute-1.amazonaws.com:5432/d8qt57dpfqap6b'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'Insert your database uri'
 
 app.config['SQLALCHEMY_TRACK_MODIFICATION'] = False
 
